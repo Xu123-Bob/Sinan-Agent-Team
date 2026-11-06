@@ -1,0 +1,131 @@
+# ============================================================
+# 司南 v3.0 硬性规则库
+# ============================================================
+# 用法说明：
+#   1. global 段：全局通用底线（任何领域都生效）
+#   2. <domain> 段：领域专属底线（任意添加）
+#   3. 用户可自由增删改，Agent 会自动读取
+#
+# 规则类型：
+#   keyword       —— 必须包含该关键词（忽略大小写）
+#   forbidden     —— 禁止包含该词/正则
+#   regex         —— 必须匹配该正则
+#   min_length    —— 内容长度不得小于 value
+#   schema_field  —— 输出 JSON 顶层必须包含该字段
+# ============================================================
+
+global:
+  rules:
+    - name: "策略非空"
+      type: "min_length"
+      value: 300
+      score: 10
+      description: "策略内容不能太短"
+
+    - name: "禁止空话套话"
+      type: "forbidden"
+      value: "无所不能|包治百病|绝对不会失败"
+      score: 10
+      description: "策略中不得出现绝对化、无实际意义的表述"
+
+    - name: "必须含量化指标"
+      type: "regex"
+      value: "\\d+\\s*(%|万|千|倍|个|条|次)"
+      score: 10
+      description: "至少包含一处带数字的量化指标"
+
+# ============================================================
+# 电商领域
+# ============================================================
+ecommerce:
+  rules:
+    - name: "包含售后说明"
+      type: "keyword"
+      value: "退换"
+      score: 15
+      description: "必须包含售后/退换货说明"
+
+    - name: "包含促销机制"
+      type: "regex"
+      value: "满减|打折|优惠券|秒杀|拼团"
+      score: 15
+      description: "需有明确促销手段"
+
+# ============================================================
+# GitHub 开源项目
+# ============================================================
+github:
+  rules:
+    - name: "提及开源协议"
+      type: "keyword"
+      value: "license"
+      score: 15
+      description: "需体现开源协议"
+
+    - name: "提及测试/CI"
+      type: "regex"
+      value: "test|ci|pipeline"
+      score: 15
+      description: "需体现质量保障"
+
+# ============================================================
+# 抖音
+# ============================================================
+douyin:
+  rules:
+    - name: "包含话题标签"
+      type: "keyword"
+      value: "#"
+      score: 10
+      description: "抖音运营需包含 Hashtag 策略"
+
+    - name: "提及完播/转化指标"
+      type: "regex"
+      value: "完播率|转化率|互动率|ROI"
+      score: 15
+      description: "需明确核心数据指标"
+
+# ============================================================
+# 用户自定义示例（如医疗/教育/营销等，直接新增即可）
+# ============================================================
+# healthcare:
+#   rules:
+#     - name: "不得含处方药商品名"
+#       type: "forbidden"
+#       value: "阿司匹林|布洛芬"
+#       score: 20
+#       description: "合规底线"
+
+# education:
+#   rules:
+#     - name: "提及因材施教"
+#       type: "keyword"
+#       value: "分层|个性化"
+#       score: 10
+#       description: "教育策略需体现分层教学思路"
+
+finance:
+  rules:
+    - name: "必须含风险提示"
+      type: "regex"
+      value: "投资有风险|风险提示|不构成投资建议"
+      score: 20
+      description: "合规要求"
+
+    - name: "禁止承诺收益"
+      type: "forbidden"
+      value: "保本|保收益|稳赚|零风险|必涨"
+      score: 20
+      description: "合规红线"
+
+    - name: "必须含再平衡规则"
+      type: "keyword"
+      value: "再平衡"
+      score: 15
+      description: "配置方案必备要素"
+
+    - name: "必须做分散"
+      type: "regex"
+      value: "股|债|现金|商品"
+      score: 15
+      description: "至少覆盖三类资产"
