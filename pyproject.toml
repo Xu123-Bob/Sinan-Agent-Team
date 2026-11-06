@@ -1,0 +1,144 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+# ============================================================
+# 项目元数据
+# ============================================================
+[project]
+name = "sinan-agent"
+version = "3.2.0"
+description = "司南 (Sinan) — 6-Agent 多智能体策略制定系统"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"    # ⭐ 明确排除 3.14
+license = { text = "MIT" }
+authors = [
+    { name = "Sinan Team" },
+]
+keywords = [
+    "llm", "multi-agent", "strategy", "debate", "rubric", "judge",
+    "deepseek", "kimi", "qwen", "glm",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# ============================================================
+# 核心依赖（必须）
+# ============================================================
+dependencies = [
+    "openai>=1.30.0",
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.1",
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    "pydantic>=2.6.0",
+    "pyyaml>=6.0.1",
+    "pandas>=2.2.0",
+    "openpyxl>=3.1.0",
+    "xlrd>=2.0.0",
+    "tabulate>=0.9.0",
+    "python-docx>=1.1.0",
+    "python-pptx>=0.6.23",
+]
+
+
+# ============================================================
+# 可选依赖（extras）
+# ============================================================
+[project.optional-dependencies]
+# SPSS .sav 文件支持（安装需要编译工具，部分系统装不上）
+spss = ["pyreadstat>=1.2.0"]
+
+# 开发依赖
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+    "mypy>=1.9.0",
+]
+
+# 一次装全（核心 + SPSS + 开发）
+all = [
+    "sinan-agent[spss]",
+    "sinan-agent[dev]",
+]
+
+
+# ============================================================
+# CLI 命令注册：sinan
+# ============================================================
+[project.scripts]
+sinan = "agent.cli:app"
+
+
+# ============================================================
+# Setuptools 打包配置
+# ============================================================
+[tool.setuptools]
+packages = ["agent", "agent.agents", "agent.core"]
+
+[tool.setuptools.package-data]
+"agent" = ["../configs/*.yaml"]
+
+
+# ============================================================
+# Ruff（Linter）
+# ============================================================
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+exclude = [
+    ".git", ".venv", "__pycache__", "build", "dist",
+    "outputs", "data", "rubrics_v2_backup",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # bugbear
+    "C4",  # comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # 行太长（由 line-length 控制）
+    "B008",  # 函数默认参数里调用（Typer 需要）
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+
+# ============================================================
+# Pytest
+# ============================================================
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+
+# ============================================================
+# MyPy（可选）
+# ============================================================
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+check_untyped_defs = false
+warn_return_any = false
+
+# ⭐ 用 find 自动发现子包，而不是手写 packages
+[tool.setuptools.packages.find]
+include = ["agent*"]
+namespaces = false
