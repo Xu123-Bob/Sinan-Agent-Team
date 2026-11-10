@@ -21,6 +21,11 @@ Dual Gameplay · Context Isolation · Shared Knowledge Base · Strict JSON Schem
 <p align="center">
   <a href="README.cn.md">简体中文</a> |
   <a href="README.en.md">English</a> |
+  <a href="README.ja.md">日本語</a> |
+  <a href="README.ko.md">한국어</a> |
+  <a href="README.es.md">Español</a> |
+  <a href="README.fr.md">Français</a> |
+  <a href="README.ru.md">Русский язык</a> |
 </p>
 
 </div>
@@ -35,8 +40,9 @@ Dual Gameplay · Context Isolation · Shared Knowledge Base · Strict JSON Schem
 - Strategy-making and evaluation are carried out through **discussion between 2 strategy-making agents**, also finalized by the **judging agent**
 - Scanning and acquiring data and professional knowledge is done by **1 scouting agent**, which mainly scans `knowledge/`, `data/`, and `output/`
 - Generated artifacts include: **strategy plans, Rubric question sheets, and discussion transcripts**, all saved to `knowledge/`; the **scouting agent automatically scans them when iterating on new strategies**
+- This project is my entry for the 2026 Beijing AI Youth Hackathon. It received a score of 4th place from Alipay and was recommended for the Alipay - Intelligent Entities Surge Competition.
 
-## Multi-Agent Architecture Diagram
+### Multi-Agent Architecture Diagram
 
 <div align="center">
 Multi-Agent Architecture Diagram
@@ -45,6 +51,9 @@ Multi-Agent Architecture Diagram
 <p align="center">
   <img src="image/infra.png" alt="Multi-Agent Architecture Diagram" width="800" />
 </p>
+
+### Product Introduction
+Static URL: https://sinan-website.pages.dev/
 
 ---
 
@@ -63,6 +72,14 @@ Multi-Agent Architecture Diagram
 - **Fully Chinese CLI**: Typer + Rich rendering, color-coded panels, real-time debate printing
 
 ---
+## Login interface
+<div align="center">
+Login interface
+</div>
+
+<p align="center">
+  <img src="image/sinancli-01.jpg" alt="Login interface" width="800" />
+</p>
 
 ## Environment Requirements (Read This First)
 ```

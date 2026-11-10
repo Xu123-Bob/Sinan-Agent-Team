@@ -21,6 +21,11 @@
 <p align="center">
   <a href="README.cn.md">简体中文</a> |
   <a href="README.en.md">English</a> |
+  <a href="README.ja.md">日本語</a> |
+  <a href="README.ko.md">한국어</a> |
+  <a href="README.es.md">Español</a> |
+  <a href="README.fr.md">Français</a> |
+  <a href="README.ru.md">Русский язык</a> |
 </p>
 
 </div>
@@ -35,8 +40,9 @@
 - 策略制定与评价，由2个**策略制定agent讨论**，最终也由**判定agent完成最终确认**
 - 扫描和获取数据与专业知识，由**1个侦察agent**来完成，主要扫描`knowledge/`、`data/`、`output/`
 - 生成产物包括：**策略方案、Rubric题表和讨论文稿**，最终保存在`knowledge/`，**迭代新策略时侦察agent会自动扫描**
+- 本项目是本人参与2026年北京AI青年黑客松的参赛作品，获得支付宝评分第4名，推荐至支付宝·智能体涌动大赛
 
-## 多智能体结构图
+### 多智能体结构图
 
 <div align="center">
 多智能体结构图
@@ -45,6 +51,9 @@
 <p align="center">
   <img src="image/infra.png" alt="多智能体结构图" width="800" />
 </p>
+
+### 产品介绍
+静态网址：https://sinan-website.pages.dev/
 
 ---
 
@@ -63,6 +72,14 @@
 - **全中文 CLI**：Typer + Rich 渲染，分色面板、实时打印辩论过程 |
 
 ---
+## 登录界面
+<div align="center">
+登录界面
+</div>
+
+<p align="center">
+  <img src="image/sinancli-01.jpg" alt="登录界面" width="800" />
+</p>
 
 ## 环境要求（先读这里）
 ```
